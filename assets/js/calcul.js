@@ -21,8 +21,9 @@ operatorbuttons.forEach(button => {
       firstNumber = currentNumber;
       operator = button.textContent;
       currentNumber = '';
-    } else if ( "-" == button.textContent){
+    } else if ( "-"==button.textContent){
       currentNumber = button.textContent
+      console.log(button.value);
     }
   });
 });
@@ -33,22 +34,33 @@ equalsbutton.addEventListener('click', () => {
     switch (operator) {
       case '+':
         result = parseFloat(firstNumber) + parseFloat(currentNumber);
+        showresult(result);
         break;
       case '-':
         result = parseFloat(firstNumber) - parseFloat(currentNumber);
+        showresult(result);
         break;
       case '*':
         result = parseFloat(firstNumber) * parseFloat(currentNumber);
+        showresult(result);
         break;
       case '/':
-        result = parseFloat(firstNumber) / parseFloat(currentNumber);
+        if(parseFloat(currentNumber) !== 0){
+          result = parseFloat(firstNumber) / parseFloat(currentNumber);
+          showresult(result);
+        }
+        else{
+          alert("erreur");
+          display.value = '';
+          currentNumber = '';
+          firstNumber = '';
+          operator = '';
+        }
         break;
       default:
         result = '';
     }
-    display.value = result;
-    firstNumber = '';
-    operator = '';
+
   }
 });
 
@@ -58,3 +70,9 @@ clearbutton.addEventListener('click', () => {
   firstNumber = '';
   operator = '';
 });
+
+function showresult(result) {
+  display.value = result;
+  firstNumber = '';
+  operator = '';
+}
